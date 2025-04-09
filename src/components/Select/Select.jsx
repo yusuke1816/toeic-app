@@ -5,11 +5,17 @@ const ScoreButtons = () => {
     <div>
       <h1>TOEICスコア帯を選択</h1>
       <div>
-        <Link href="/600-700">
-          <button>600-700点</button>
+        <Link href="/300-500">
+          <button>300-500点</button>
         </Link>
-        <Link href="/700-800">
-          <button>700-800点</button>
+        <Link href="/500-650">
+          <button>500-650点</button>
+        </Link>
+        <Link href="/650-780">
+          <button>650-780点</button>
+        </Link>
+        <Link href="/780-900">
+          <button>780-900点</button>
         </Link>
         <Link href="/900+">
           <button>900点以上</button>
@@ -20,4 +26,3 @@ const ScoreButtons = () => {
 };
 
 export default ScoreButtons;
-

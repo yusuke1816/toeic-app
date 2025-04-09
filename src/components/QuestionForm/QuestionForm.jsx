@@ -29,6 +29,7 @@ const QuestionForm = (props) => {
     const nextText = `${text}`;  // 次の質問を設定
     setText(nextText);  // テキスト更新
     handleSubmit(nextText);  // 次の質問送信
+    console.log(nextText);  // デバッグ用
   };
 
   return (

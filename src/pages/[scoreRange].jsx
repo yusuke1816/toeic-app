@@ -3,20 +3,30 @@ import QuestionForm from "../components/QuestionForm/QuestionForm";
 
 // スコア帯ごとの情報を格納したオブジェクト
 const levels = {
-  "600-700": {
-    scoreRange: "600-700点",
-    description: "このページでは600-700点のTOEICスコア帯に関連する情報が表示されます。",
-    additionalInfo: "詳細なスコア分析やアドバイスを提供します。",
+  "300-500": {
+    scoreRange: "300-500点",
+    description: "このページでは300-500点のTOEICスコア帯に関連する情報が表示されます。",
+    additionalInfo: "このスコア帯では基本的な英語の理解が必要です。",
   },
-  "700-800": {
-    scoreRange: "700-800点",
-    description: "このページでは700-800点のTOEICスコア帯に関連する情報が表示されます。",
-    additionalInfo: "詳細なスコア分析やアドバイスを提供します。",
+  "500-650": {
+    scoreRange: "500-650点",
+    description: "このページでは500-650点のTOEICスコア帯に関連する情報が表示されます。",
+    additionalInfo: "このスコア帯では日常的な英会話に必要な英語力が求められます。",
+  },
+  "650-780": {
+    scoreRange: "650-780点",
+    description: "このページでは650-780点のTOEICスコア帯に関連する情報が表示されます。",
+    additionalInfo: "このスコア帯ではより複雑な英語文を理解できる力が必要です。",
+  },
+  "780-900": {
+    scoreRange: "780-900点",
+    description: "このページでは780-900点のTOEICスコア帯に関連する情報が表示されます。",
+    additionalInfo: "高い英語力を持ち、ビジネス英語にも対応できる力があります。",
   },
   "900+": {
     scoreRange: "900点以上",
     description: "このページでは900点以上のTOEICスコア帯に関連する情報が表示されます。",
-    additionalInfo: "詳細なスコア分析やアドバイスを提供します。",
+    additionalInfo: "このスコア帯は上級者向けで、流暢で正確な英語を使いこなせるレベルです。",
   },
 };
 
