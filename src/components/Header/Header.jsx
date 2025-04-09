@@ -1,3 +1,5 @@
+// src/components/Header.jsx
+import Link from 'next/link';  // next/link をインポート
 import styles from './Header.module.css';
 
 const Header = () => {
@@ -7,9 +9,16 @@ const Header = () => {
         <h1>サイトのタイトル</h1>
         <nav>
           <ul className={styles.navList}>
-            <li><a href="/" className={styles.navItem}>ホーム</a></li>
-            <li><a href="/about" className={styles.navItem}>アバウト</a></li>
-            <li><a href="/contact" className={styles.navItem}>お問い合わせ</a></li>
+            {/* Link コンポーネント内で直接 className を指定 */}
+            <li>
+              <Link href="/" className={styles.navItem}>ホーム</Link>
+            </li>
+            <li>
+              <Link href="/about" className={styles.navItem}>アバウト</Link>
+            </li>
+            <li>
+              <Link href="/contact" className={styles.navItem}>お問い合わせ</Link>
+            </li>
           </ul>
         </nav>
       </div>
@@ -18,4 +27,3 @@ const Header = () => {
 };
 
 export default Header;
-

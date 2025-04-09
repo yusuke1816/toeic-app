@@ -1,16 +1,16 @@
+// pages/index.jsx
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import QuestionForm from '../components/QuestionForm/QuestionForm';
+import ScoreButtons from '../components/select/select'; // ScoreButtonsコンポーネントをインポート
 
-
-function App() {
+const Home = () => {
   return (
     <div>
-      <Header /> {/* ヘッダーコンポーネントを表示 */}
-      <QuestionForm /> {/* QuestionFormコンポーネントをここで使用 */}
-      <Footer /> {/* フッターコンポーネントを表示 */}
+
+      <ScoreButtons /> {/* ScoreButtonsコンポーネントをここで使用 */}
+ 
     </div>
   );
-}
+};
 
-export default App;
+export default Home;
