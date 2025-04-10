@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { fetchApiResponse } from './api';  // APIリクエストを切り出したファイル
+import { fetchApiResponse } from './api';
 import styles from './QuestionForm.module.css';
-import ResponseDisplay from './ResponseDisplay';  // 回答を表示するコンポーネント
-import LoadingIndicator from './LoadingIndicator';  // ローディングインジケータ
+import ResponseDisplay from './ResponseDisplay'; // 回答を表示するコンポーネント
+import LoadingIndicator from './LoadingIndicator'; // ローディングインジケータ
 
 const QuestionForm = (props) => {
   const [response, setResponse] = useState('');
@@ -10,12 +10,14 @@ const QuestionForm = (props) => {
   const [text, setText] = useState('');
   const [submitCount, setSubmitCount] = useState(0);  // 送信回数の状態を追加
   const { scoreRange, description, additionalInfo } = props.level;  // レベル情報を取得
+  const [showAnswer, setShowAnswer] = useState(false); // 答えの表示/非表示を管理するステート
 
   // 質問を送信する関数
   const handleSubmit = async (question) => {
     setLoading(true);  // ローディング開始
     const response = await fetchApiResponse(question);
     setResponse(response);  // レスポンス設定
+    console.log(response);  // デバッグ用
     setLoading(false);  // ローディング終了
     setSubmitCount(prevCount => prevCount + 1);  // 送信回数をインクリメント
   };
@@ -32,7 +34,10 @@ const QuestionForm = (props) => {
     setText(nextText);  // テキスト更新
     handleSubmit(nextText);  // 次の質問送信
     console.log(nextText);  // デバッグ用
+    setShowAnswer(prevState => !prevState);  
+  
   };
+  
 
   return (
     <div className={styles.container}>
@@ -41,7 +46,11 @@ const QuestionForm = (props) => {
 
       {/* プリセットボタン */}
       <div className={styles.presetButtons}>
-        <button onClick={() => handlePresetClick(`toeicのpart5問題3問難易度は${scoreRange}レベル(わかりやすいよう改行して)`)} className={styles.presetButton}>
+        <button onClick={() => handlePresetClick(`toeicのpart5問題1問難易度は${scoreRange}レベル[
+  { "question": "...", "options": [...], "answer": "..." }
+]
+このかたちで出力
+`)} className={styles.presetButton}>
           part5
         </button>
         <button onClick={() => handlePresetClick(`toeicのpart6の穴埋めの問題1問、過去問参照して難易度は${scoreRange}レベル(わかりやすいよう改行して)`)} className={styles.presetButton}>
@@ -53,7 +62,7 @@ const QuestionForm = (props) => {
       {loading && <LoadingIndicator />}
 
       {/* 回答表示 */}
-      <ResponseDisplay response={response} />
+      {!loading && <ResponseDisplay response={response} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />}
 
       {/* 次の問題ボタン */}
       <button onClick={handleNextClick} className={styles.nextButton}>
