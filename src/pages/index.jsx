@@ -7,11 +7,11 @@ import ScoreButtons from '../components/Select/ScoreButtons'; // もしファイ
 const Home = () => {
   return (
     <div>
-      <Header /> {/* ヘッダーコンポーネントを追加 */}
+  
       
       <ScoreButtons /> {/* ScoreButtonsコンポーネントをここで使用 */}
       
-      <Footer /> {/* フッターコンポーネントを追加 */}
+  
     </div>
   );
 };
