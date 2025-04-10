@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'; // useRouterをインポート
 import QuestionForm from "../components/QuestionForm/QuestionForm";
 
+
 // スコア帯ごとの情報を格納したオブジェクト
 const levels = {
   "300-500": {
@@ -42,8 +43,8 @@ const ScorePage = () => {
 
   return (
     <div>
-   
       <QuestionForm level={level} />
+
     </div>
   );
 };

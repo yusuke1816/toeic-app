@@ -8,7 +8,7 @@ export const fetchApiResponse = async (question) => {
       {
         model: 'gpt-4',
         messages: [{ role: 'user', content: question }],
-        max_tokens: 150,
+        max_tokens: 500,
         temperature: 0.5,
         top_p: 1,
       },
