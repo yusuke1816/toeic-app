@@ -1,0 +1,40 @@
+/* ScoreButtons.module.css */
+.container {
+    display: flex;
+    flex-direction: column; /* 縦並びに */
+    align-items: center; /* 中央揃え */
+    gap: 20px; /* カード間の隙間 */
+  }
+  
+  .card {
+    width: 250px; /* カードの幅 */
+    padding: 20px; /* カード内の余白 */
+    border: 1px solid #ddd; /* カードの境界線 */
+    border-radius: 8px; /* カードの角を丸く */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* カードに影 */
+    text-align: center; /* テキストを中央寄せ */
+    background-color: #fff; /* 背景色 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* アニメーション */
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* ホバー時にカードが浮き上がる */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 影を強調 */
+  }
+  
+  .button {
+    width: 100%; /* ボタンをカードいっぱいに広げる */
+    padding: 12px;
+    font-size: 16px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #005bb5;
+  }
+  

@@ -42,8 +42,7 @@ const ScorePage = () => {
 
   return (
     <div>
-      <h1>{level.scoreRange}のスコア帯</h1>
-      <p>{level.description}</p>
+   
       <QuestionForm level={level} />
     </div>
   );

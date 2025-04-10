@@ -9,7 +9,7 @@ const ResponseDisplay = ({ response }) => {
 
   return (
     <div className={styles.responseContainer}>
-      <h2 className={styles.responseHeader}>回答:</h2>
+      <h2 className={styles.responseHeader}>問題</h2>
       <div className={styles.responseText}>
         {formatResponse(response)}
       </div>

@@ -1,0 +1,26 @@
+/* globals.css */
+
+/* リセットスタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 画面の高さに合わせる */
+  }
+  
+  .main-content {
+    flex: 1; /* メインコンテンツ部分を可変にして、ヘッダーとフッターを固定 */
+    padding: 20px;
+  }
+  

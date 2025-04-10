@@ -6,18 +6,21 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <h1>サイトのタイトル</h1>
+        <h1>AI*TOEIC</h1>
         <nav>
           <ul className={styles.navList}>
             {/* Link コンポーネント内で直接 className を指定 */}
             <li>
-              <Link href="/" className={styles.navItem}>ホーム</Link>
+              <Link href="/" className={styles.navItem}>レベル選択</Link>
             </li>
             <li>
-              <Link href="/about" className={styles.navItem}>アバウト</Link>
+              <Link href="/about" className={styles.navItem}>復習</Link>
             </li>
             <li>
-              <Link href="/contact" className={styles.navItem}>お問い合わせ</Link>
+              <Link href="/contact" className={styles.navItem}>分析</Link>
+            </li>
+            <li>
+              <Link href="/contact" className={styles.navItem}>login</Link>
             </li>
           </ul>
         </nav>
