@@ -35,6 +35,11 @@ const ScoreButtons = () => {
           <button className={styles.button}>900点以上</button>
         </Link>
       </div>
+      <div className={styles.card}>
+        <Link href="/900+">
+          <button className={styles.button}>900点以上</button>
+        </Link>
+      </div>
     </div>
   );
 };
