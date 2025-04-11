@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { fetchApiResponse } from './api';
 import styles from './QuestionForm.module.css';
 import ResponseDisplay from './ResponseDisplay'; // 回答を表示するコンポーネント
 import LoadingIndicator from './LoadingIndicator'; // ローディングインジケータ
-import Part6Display from './Part6Display'; // Part 6 の回答を表示するコンポーネント
 
 const QuestionForm = (props) => {
   const [response, setResponse] = useState('');
@@ -18,6 +17,7 @@ const QuestionForm = (props) => {
     setLoading(true);  // ローディング開始
     const response = await fetchApiResponse(question);
     setResponse(response);  // レスポンス設定
+    console.log(response);  // デバッグ用
     setLoading(false);  // ローディング終了
     setSubmitCount(prevCount => prevCount + 1);  // 送信回数をインクリメント
   };
@@ -33,22 +33,9 @@ const QuestionForm = (props) => {
     const nextText = `${text}`;  // 次の質問を設定
     setText(nextText);  // テキスト更新
     handleSubmit(nextText);  // 次の質問送信
+    console.log(nextText);  // デバッグ用
     setShowAnswer(prevState => !prevState);  
   };
-
-  const isPart6 = (response) => {
-    if (response && typeof response === "string" && response.includes("passage")) {
-      return true;
-    }
-    return false;
-  };
-
-  // ここでresponseの変更を監視
-  useEffect(() => {
-    if (response) {
-      console.log("Response updated", response);
-    }
-  }, [response]); // responseの更新を監視
 
   return (
     <div className={styles.container}>
@@ -64,18 +51,35 @@ const QuestionForm = (props) => {
 `)} className={styles.presetButton}>
           part5
         </button>
-        <button onClick={() => handlePresetClick(`なるべくtoken消費しないように、toeicのpart6の長文虫食い問題を一問だけ出して形式は{
+        <button onClick={() => handlePresetClick(`問題: 
+A survey shows growing interest in eco-friendly products. The company plans to launch a sustainable product line, made from recyclable materials, with biodegradable packaging. An advertising campaign, including online ads, TV, and print media, will promote the products. Profits will support environmental efforts.
+
+空欄 (1): 
+(A) However
+(B) As a result
+(C) Therefore
+(D) On the other hand
+
+空欄 (2): 
+(A) Furthermore
+(B) Otherwise
+(C) Moreover
+(D) In addition
+
+空欄 (3): 
+(A) In this way
+(B) Consequently
+(C) For example
+(D) For instance
+
+形式: {
   "passage": "...",
   "questions": [
     { "number": 1, "text": "(1)", "options": [...], "answer": "..." },
     { "number": 2, "text": "(2)", "options": [...], "answer": "..." },
     { "number": 3, "text": "(3)", "options": [...], "answer": "..." }
   ]
-}
-
-
-このかたちで出力
-`)} className={styles.presetButton}>
+}`)} className={styles.presetButton}>
           part6
         </button>
       </div>
@@ -85,11 +89,7 @@ const QuestionForm = (props) => {
 
       {/* 回答表示 */}
       {!loading && (
-        isPart6(response) ? (
-          <Part6Display response={response} />
-        ) : (
-          <ResponseDisplay response={response} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
-        )
+        <ResponseDisplay response={response} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
       )}
 
       {/* 次の問題ボタン */}
