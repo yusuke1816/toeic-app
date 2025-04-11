@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^6.6.0",
     "axios": "^1.8.4",
     "next": "15.2.5",
     "next-auth": "^4.24.11",
+    "prisma": "^6.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.5.0"

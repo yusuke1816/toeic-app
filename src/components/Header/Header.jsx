@@ -15,7 +15,7 @@ const Header = () => {
               <Link href="/" className={styles.navItem}>レベル選択</Link>
             </li>
             <li>
-              <Link href="/about" className={styles.navItem}>復習</Link>
+              <Link href="/show-responses" className={styles.navItem}>復習</Link>
             </li>
             <li>
               <Link href="/contact" className={styles.navItem}>分析</Link>

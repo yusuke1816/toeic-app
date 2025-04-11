@@ -97,6 +97,8 @@ A survey shows growing interest in eco-friendly products. The company plans to l
         次へ
       </button>
 
+      <button>チェック</button>
+
       {/* 送信回数表示 */}
       <p>{submitCount}回目</p>
     </div>
