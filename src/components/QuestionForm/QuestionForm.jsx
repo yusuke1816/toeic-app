@@ -92,12 +92,14 @@ A survey shows growing interest in eco-friendly products. The company plans to l
         <ResponseDisplay response={response} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
       )}
 
-      {/* 次の問題ボタン */}
-      <button onClick={handleNextClick} className={styles.nextButton}>
-        次へ
-      </button>
-
-      <YourComponent response={response}/> {/* これが送信ボタン */}
+     {/* ボタンを横並びにするラッパー */}
+<div className={styles.buttonRow}>
+  <button className={styles.buckButton}>戻る</button>
+  <YourComponent  response={response} /> {/* 送信ボタン */}
+  <button onClick={handleNextClick} className={styles.nextButton}>
+    次へ
+  </button>
+</div>
 
       {/* 送信回数表示 */}
       <p>{submitCount}回目</p>

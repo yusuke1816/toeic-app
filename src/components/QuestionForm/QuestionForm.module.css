@@ -83,8 +83,30 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  
+
   .nextButton:hover {
     background-color: #0056b3;
   }
-  
+
+  .buckButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f7091c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .buckButton:hover {
+    background-color: #a30815;
+  }
+
+  .buttonRow {
+    display: flex;
+    gap: 10px; /* ボタン同士の間隔 */
+    justify-content: center; /* 中央揃え（必要に応じて調整） */
+    margin-top: 16px; /* 上の余白（調整可能） */
+  }
+   

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import styles from './YourComponent.module.css'; // CSS モジュールをインポート
 
 const YourComponent = ({ response }) => {
   const sendData = async () => {
@@ -36,7 +37,7 @@ const YourComponent = ({ response }) => {
 
   return (
     <div>
-      <button onClick={sendData}>データをDBに送信</button>
+      <button className={styles.saveButton} onClick={sendData}>チェックして残す</button>
     </div>
   );
 };
