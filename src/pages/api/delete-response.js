@@ -1,22 +1,27 @@
-// pages/api/delete-response.js
-import { MongoClient, ObjectId } from 'mongodb';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   if (req.method === 'DELETE') {
-    const { id } = req.body;
-
-    const client = await MongoClient.connect(process.env.MONGODB_URI);
-    const db = client.db();
-
     try {
-      await db.collection('responses').deleteOne({ _id: new ObjectId(id) });
-      res.status(200).json({ message: '削除成功' });
+      const { id } = req.body;
+
+      if (!id) {
+        return res.status(400).json({ error: 'IDが必要です' });
+      }
+
+      const deleted = await prisma.response.delete({
+        where: { id: id },
+      });
+
+      return res.status(200).json({ message: '削除成功', deleted });
     } catch (error) {
-      res.status(500).json({ message: '削除失敗', error });
-    } finally {
-      client.close();
+      console.error('削除エラー:', error);
+      return res.status(500).json({ error: 'サーバーエラー' });
     }
   } else {
-    res.status(405).json({ message: 'Method not allowed' });
+    res.setHeader('Allow', ['DELETE']);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
