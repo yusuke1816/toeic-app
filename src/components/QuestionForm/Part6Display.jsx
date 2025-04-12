@@ -11,7 +11,7 @@ const Part6Display = ({ response }) => {
   try {
     res = typeof response === 'string' ? JSON.parse(response) : response;
   } catch {
-    return <p>JSONの形式が不正です。</p>;
+    return <p>JSONの形式が正しくありません。</p>;
   }
 
   if (!res.passage || !res.questions) return <p>データ構造が不正です。</p>;
@@ -24,7 +24,6 @@ const Part6Display = ({ response }) => {
   };
 
   const renderPassage = (passageText) => {
-    // Splitting the passage text by the placeholders for the questions
     return passageText.split(/\((\d+)\)/g).map((part, index) => {
       if (index % 2 === 1) {
         const qNum = parseInt(part);
@@ -38,10 +37,8 @@ const Part6Display = ({ response }) => {
   return (
     <div className={styles.responseContainer}>
       <div className={styles.responseText}>
-        {/* Render the passage */}
         <p>{renderPassage(res.passage)}</p>
 
-        {/* Render each question and its options */}
         {res.questions.map((q) => (
           <div key={q.number} className={styles.questionBlock}>
             <p>{q.text}</p>
@@ -57,7 +54,6 @@ const Part6Display = ({ response }) => {
               </button>
             ))}
 
-            {/* Show answer feedback */}
             {showAnswer && (
               <p>
                 {selectedAnswers[q.number] === q.answer ? (
@@ -72,7 +68,6 @@ const Part6Display = ({ response }) => {
           </div>
         ))}
 
-        {/* Button to show the answers */}
         {!showAnswer && (
           <button onClick={() => setShowAnswer(true)} className={styles.submitButton}>
             答えを確認する

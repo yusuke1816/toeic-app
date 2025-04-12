@@ -3,7 +3,7 @@ import { fetchApiResponse } from './api';
 import styles from './QuestionForm.module.css';
 import ResponseDisplay from './ResponseDisplay'; // 回答を表示するコンポーネント
 import LoadingIndicator from './LoadingIndicator'; // ローディングインジケータ
-
+import YourComponent from './YourComponent'; // 送信ボタンのコンポーネント
 const QuestionForm = (props) => {
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
@@ -97,7 +97,7 @@ A survey shows growing interest in eco-friendly products. The company plans to l
         次へ
       </button>
 
-      <button>チェック</button>
+      <YourComponent response={response}/> {/* これが送信ボタン */}
 
       {/* 送信回数表示 */}
       <p>{submitCount}回目</p>

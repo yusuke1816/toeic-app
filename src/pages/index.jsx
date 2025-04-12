@@ -2,15 +2,15 @@ import { getSession } from "next-auth/react";
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import ScoreButtons from '../components/Select/ScoreButtons';
-import YourComponent from '../components/YourComponent'; // 追加
+import YourComponent from '../components/QuestionForm/YourComponent'; // 追加
 
 const Home = () => {
   return (
     <div>
-      <Header />
+   
       <ScoreButtons />
-      <YourComponent /> {/* これが送信ボタン */}
-      <Footer />
+     
+   
     </div>
   );
 };

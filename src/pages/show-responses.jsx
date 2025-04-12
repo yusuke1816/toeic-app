@@ -4,8 +4,8 @@ import styles from '../components/QuestionForm/QuestionForm.module.css';
 
 const ShowResponses = () => {
   const [responses, setResponses] = useState([])
-  const [showAnswer, setShowAnswer] = useState(false);
-  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [showAnswer, setShowAnswer] = useState(false)
+  const [selectedAnswers, setSelectedAnswers] = useState({})
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,46 +23,62 @@ const ShowResponses = () => {
   const handleSelect = (number, option) => {
     setSelectedAnswers((prev) => ({
       ...prev,
-      [number]: option
-    }));
+      [number]: option,
+    }))
+  }
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete('/api/delete-response', { data: { id } });
+      console.log('削除成功:', response.data);
+      // レスポンスが成功した場合、リストから削除
+      setResponses((prev) => prev.filter((res) => res.id !== id));
+    } catch (err) {
+      console.error('削除エラー:', err);
+      console.log('削除しようとしたID:', id);
+    }
   };
-
+  
+  
   const renderPassage = (passageText) => {
     return passageText.split(/\((\d+)\)/g).map((part, index) => {
       if (index % 2 === 1) {
-        const qNum = parseInt(part);
-        const selected = selectedAnswers[qNum] || '＿＿';
-        return <strong key={index}> [{selected}] </strong>;
+        const qNum = parseInt(part)
+        const selected = selectedAnswers[qNum] || '＿＿'
+        return <strong key={index}> [{selected}] </strong>
       }
-      return <span key={index}>{part}</span>;
-    });
-  };
+      return <span key={index}>{part}</span>
+    })
+  }
 
   return (
     <div>
       <h1>保存されたデータ</h1>
+
       {responses.length === 0 ? (
         <p>データはありません。</p>
       ) : (
         <ul>
           {responses.map((response) => {
-            let res;
+            let res
             try {
-              res = typeof response === 'string' ? JSON.parse(response) : response;
+              res = typeof response === 'string' ? JSON.parse(response) : response
             } catch {
-              return <p key={response.id}>JSONの形式が不正です。</p>;
+              return <p key={response.id}>JSONの形式が不正です。</p>
             }
 
-            const isPart6 = res.passage && res.questions;
+            const contentData = res?.content?.content
+            const isPart6 = contentData?.passage && contentData?.questions
+            const isPart5 = contentData?.question && contentData?.options
 
             return (
-              <li key={response.id}>
+              <li key={res.id}>
                 <div className={styles.responseContainer}>
                   <div className={styles.responseText}>
                     {isPart6 ? (
+                      // Part6 表示
                       <div>
-                        <p>{renderPassage(res.passage)}</p>
-                        {res.questions.map((q) => (
+                        <p>{renderPassage(contentData.passage)}</p>
+                        {contentData.questions.map((q) => (
                           <div key={q.number} className={styles.questionBlock}>
                             <p>{q.text}</p>
                             {q.options.map((opt, idx) => (
@@ -90,41 +106,37 @@ const ShowResponses = () => {
                           </div>
                         ))}
                       </div>
-                    ) : (
+                    ) : isPart5 ? (
+                      // Part5 表示
                       <div>
-                        {response.content?.question ? (
-                          <p>{response.content.question}</p>
-                        ) : (
-                          <p>質問がありません</p>
-                        )}
-                        {response.content?.options && response.content.options.length > 0 ? (
-                          response.content.options.map((option, i) => (
-                            <button
-                              key={i}
-                              onClick={() => handleSelect(response.id, option)}
-                              className={styles.optionButton}
-                            >
-                              {`${i + 1}. ${option}`}
-                            </button>
-                          ))
-                        ) : (
-                          <p>選択肢がありません</p>
-                        )}
-                        {selectedAnswers[response.id] && showAnswer && (
+                        <p>{contentData.question}</p>
+                        {contentData.options.map((option, i) => (
+                          <button
+                            key={i}
+                            onClick={() => handleSelect(res.id, option)}
+                            className={`${styles.optionButton} ${
+                              selectedAnswers[res.id] === option ? styles.selected : ''
+                            }`}
+                          >
+                            {`${String.fromCharCode(65 + i)}. ${option}`}
+                          </button>
+                        ))}
+                        {selectedAnswers[res.id] && showAnswer && (
                           <p>
-                            {selectedAnswers[response.id] === response.content.answer ? (
-                              <strong style={{ color: 'green' }}>正解です！</strong>
+                            {selectedAnswers[res.id] === contentData.answer ? (
+                              <span style={{ color: 'green' }}>正解です！</span>
                             ) : (
-                              <strong style={{ color: 'red' }}>不正解です。</strong>
+                              <span style={{ color: 'red' }}>
+                                不正解です。正解: {contentData.answer}
+                              </span>
                             )}
-                            <br />
-                            あなたの選択: {selectedAnswers[response.id]}
-                            <br />
-                            正解: {response.content.answer}
                           </p>
                         )}
                       </div>
+                    ) : (
+                      <p>データ形式が対応していません。</p>
                     )}
+
                     {!showAnswer && (
                       <button
                         onClick={() => setShowAnswer(true)}
@@ -133,15 +145,22 @@ const ShowResponses = () => {
                         答えを確認する
                       </button>
                     )}
+
+                    <button
+                      onClick={() => handleDelete(res.id)} // Fix here
+                      className={styles.deleteButton}
+                    >
+                      削除
+                    </button>
                   </div>
                 </div>
               </li>
-            );
+            )
           })}
         </ul>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ShowResponses;
+export default ShowResponses
