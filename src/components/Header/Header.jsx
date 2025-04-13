@@ -12,7 +12,7 @@ const Header = () => {
         <nav>
           <ul className={styles.navList}>
             <li>
-              <Link href="/a" className={styles.navItem}>レベル選択</Link>
+              <Link href="/" className={styles.navItem}>レベル選択</Link>
             </li>
             <li>
               <Link href="/show-responses" className={styles.navItem}>復習</Link>
