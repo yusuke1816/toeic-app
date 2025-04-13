@@ -15,16 +15,13 @@ const ResponseDisplay = ({ response, showAnswer, setShowAnswer }) => {
     return <p>JSONの形式が不正です。</p>;
   }
 
-  // passage があるかどうかで Part6 と 単一問題に分岐
   const isPart6 = res.passage && res.questions;
 
-  // 共通: "..." を "＿" に置き換え
   const replaceEllipsis = (text) => {
     if (!text) return '';
     return text.replace(/\.{3}/g, '＿');
   };
 
-  // Part6 用: passage を表示する処理
   const renderPassage = (passageText) => {
     return passageText.split(/\((\d+)\)/g).map((part, index) => {
       if (index % 2 === 1) {
@@ -36,7 +33,6 @@ const ResponseDisplay = ({ response, showAnswer, setShowAnswer }) => {
     });
   };
 
-  // Part6 の選択処理
   const handleSelect = (number, option) => {
     setSelectedAnswers((prev) => ({
       ...prev,
@@ -44,7 +40,6 @@ const ResponseDisplay = ({ response, showAnswer, setShowAnswer }) => {
     }));
   };
 
-  // 単一問題用
   const questions = Array.isArray(res) ? res : [res];
   const question = questions[0];
 
@@ -64,17 +59,30 @@ const ResponseDisplay = ({ response, showAnswer, setShowAnswer }) => {
             {res.questions.map((q) => (
               <div key={q.number} className={styles.questionBlock}>
                 <p>{q.text}</p>
-                {q.options.map((opt, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => handleSelect(q.number, opt)}
-                    className={`${styles.optionButton} ${
-                      selectedAnswers[q.number] === opt ? styles.selected : ''
-                    }`}
-                  >
-                    {`${String.fromCharCode(65 + idx)}. ${opt}`}
-                  </button>
-                ))}
+                {q.options.map((opt, idx) => {
+                  const isSelected = selectedAnswers[q.number] === opt;
+                  const isCorrectOption = opt === q.answer;
+                  let className = styles.optionButton;
+
+                  if (isSelected) {
+                    className += ` ${styles.selected}`;
+                    if (showAnswer) {
+                      className += isCorrectOption
+                        ? ` ${styles.correct}`
+                        : ` ${styles.incorrect}`;
+                    }
+                  }
+
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => handleSelect(q.number, opt)}
+                      className={className}
+                    >
+                      {`${String.fromCharCode(65 + idx)}. ${opt}`}
+                    </button>
+                  );
+                })}
 
                 {showAnswer && (
                   <p>
@@ -99,7 +107,6 @@ const ResponseDisplay = ({ response, showAnswer, setShowAnswer }) => {
               </button>
             )}
           </div>
-          {console.log('part6')}
         </div>
       ) : (
         <div className={styles.responseContainer}>
@@ -111,15 +118,30 @@ const ResponseDisplay = ({ response, showAnswer, setShowAnswer }) => {
             )}
 
             {question.options && question.options.length > 0 ? (
-              question.options.map((option, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleAnswerSelect(option)}
-                  className={styles.optionButton}
-                >
-                  {`${i + 1}. ${replaceEllipsis(option)}`}
-                </button>
-              ))
+              question.options.map((option, i) => {
+                const isSelected = selectedAnswer === option;
+                const isCorrectOption = option === question.answer;
+                let className = styles.optionButton;
+
+                if (isSelected) {
+                  className += ` ${styles.selected}`;
+                  if (showAnswer) {
+                    className += isCorrectOption
+                      ? ` ${styles.correct}`
+                      : ` ${styles.incorrect}`;
+                  }
+                }
+
+                return (
+                  <button
+                    key={i}
+                    onClick={() => handleAnswerSelect(option)}
+                    className={className}
+                  >
+                    {`${i + 1}. ${replaceEllipsis(option)}`}
+                  </button>
+                );
+              })
             ) : (
               <p>選択肢がありません</p>
             )}
@@ -137,7 +159,6 @@ const ResponseDisplay = ({ response, showAnswer, setShowAnswer }) => {
                 正解: {question.answer}
               </p>
             )}
-            {console.log('part5')}
           </div>
         </div>
       )}

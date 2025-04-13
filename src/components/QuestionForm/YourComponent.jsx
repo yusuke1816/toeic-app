@@ -16,7 +16,6 @@ const YourComponent = ({ response }) => {
 
     let dataToSend;
 
-    // passage があるかどうかだけで形式判定
     if ('passage' in parsedResponse) {
       // 新形式 (Part6)
       dataToSend = { content: parsedResponse };
@@ -30,14 +29,26 @@ const YourComponent = ({ response }) => {
     try {
       const res = await axios.post('/api/save-response', dataToSend);
       console.log('✅ 保存成功:', res.data);
+      alert('チェックしました'); // アラートでメッセージを表示
     } catch (err) {
       console.error('❌ 保存失敗:', err);
+      alert('保存に失敗しました'); // エラーメッセージをアラートで表示
+    }
+  };
+
+  const isDisabled = !response || (typeof response === 'string' && response.trim() === '');
+
+  const handleClick = () => {
+    if (isDisabled) {
+      alert('問題がありません');
+    } else {
+      sendData();
     }
   };
 
   return (
     <div>
-      <button className={styles.saveButton} onClick={sendData}>チェックして残す</button>
+      <button className={styles.saveButton} onClick={handleClick}>チェックして残す</button>
     </div>
   );
 };

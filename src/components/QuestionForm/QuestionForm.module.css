@@ -109,4 +109,27 @@
     justify-content: center; /* 中央揃え（必要に応じて調整） */
     margin-top: 16px; /* 上の余白（調整可能） */
   }
+  .optionButton {
+    margin: 4px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .selected {
+    border: 2px solid #333;
+  }
+  
+  .correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+  }
+  
+  .incorrect {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+  }
    
